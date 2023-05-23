@@ -2,6 +2,7 @@ import { ref, inject} from 'vue'
 import RouterView from './RouterView.vue'
 import RouterLink from './RouterLink.vue'
 import { createWebHashHistory } from './history/hash'
+import { createWebHistory } from './history/html5'
 
 const ROUTER_KEY = Symbol('__router__')
 
@@ -21,8 +22,17 @@ class Router {
       this.current = ref(this.history.url)
       
       this.history.bindEvents(() => {
-          this.current.value = window.location.hash.slice(1)
+          
+          if(this.history.mode === 'hash') {
+            this.current.value = window.location.hash.slice(1)
+          } else {
+            this.current.value = window.location.pathname
+          }
       })
+  }
+
+  push(path) {
+    this.history.push(path)
   }
   install(app) {
       app.provide(ROUTER_KEY, this)
@@ -31,4 +41,4 @@ class Router {
   }
 }
 
-export {createRouter, useRouter, createWebHashHistory}
+export {createRouter, useRouter, createWebHashHistory, createWebHistory}

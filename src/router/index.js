@@ -1,5 +1,5 @@
-import { createRouter, useRouter, createWebHashHistory } from './router.js'
+import { createRouter, useRouter, createWebHashHistory, createWebHistory } from './router.js'
 
 export {
-  createRouter, useRouter, createWebHashHistory
+  createRouter, useRouter, createWebHashHistory, createWebHistory
 }
